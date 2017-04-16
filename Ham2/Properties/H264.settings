@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ham2.Properties" GeneratedClassName="H264">
+  <Profiles />
+  <Settings>
+    <Setting Name="crf" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="preset" Type="System.String" Scope="User">
+      <Value Profile="(Default)">veryfast</Value>
+    </Setting>
+    <Setting Name="videoBitRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">96k</Value>
+    </Setting>
+    <Setting Name="buffersize" Type="System.String" Scope="User">
+      <Value Profile="(Default)">198k</Value>
+    </Setting>
+    <Setting Name="gop" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="audioCodec" Type="System.String" Scope="User">
+      <Value Profile="(Default)">aac</Value>
+    </Setting>
+    <Setting Name="audioBitRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">24k</Value>
+    </Setting>
+    <Setting Name="pixelFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">yuv420p</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

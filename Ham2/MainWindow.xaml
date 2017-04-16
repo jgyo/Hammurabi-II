@@ -1,0 +1,732 @@
+﻿<Window
+    x:Class="Ham2.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:commands="clr-namespace:Ham2.commands"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dz="http://schemas.devzest.com/presentation/docking"
+    xmlns:local="clr-namespace:Ham2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utility="clr-namespace:Ham2.utility"
+    xmlns:vm="clr-namespace:Ham2.viewmodel"
+    x:Name="window"
+    Title="Hammurabi II"
+    Width="595.332"
+    Height="443.241"
+    Closing="WindowClosing"
+    Icon="Hanurrabi.ico"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <utility:BooleanNotConverter x:Key="BooleanNotConverter" />
+        <utility:BooleanToBrushConverter x:Key="BooleanToBrushConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <utility:RevBooleanToVisibilityConverter x:Key="RevBooleanToVisibilityConverter" />
+        <utility:BooleanToTextConverter x:Key="BooleanToTextConverter" />
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="2,4" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3" />
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA" />
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5" />
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="AllowDrop" Value="true" />
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Focusable="false"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                        <Condition Property="IsSelectionActive" Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="OptionMarkFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="14,0,0,0"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GreenIndicatorStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="IsChecked" Value="False" />
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid
+                            x:Name="templateRoot"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                x:Name="checkBoxBorder"
+                                Margin="0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid">
+                                    <Image
+                                        x:Name="optionMark"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0"
+                                        Source="green-led-off-md.png"
+                                        Stretch="Uniform" />
+                                </Grid>
+                            </Border>
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Grid.Column="1"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
+                                <Setter Property="Padding" Value="4,-1,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="optionMark" Property="Source" Value="green-led-on-md.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RedIndicatorStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="IsChecked" Value="False" />
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid
+                            x:Name="templateRoot"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                x:Name="checkBoxBorder"
+                                Margin="0"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid">
+                                    <Image
+                                        x:Name="optionMark"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="0"
+                                        Source="red-led-off-md.png"
+                                        Stretch="Uniform" />
+                                </Grid>
+                            </Border>
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Grid.Column="1"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
+                                <Setter Property="Padding" Value="4,-1,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="optionMark" Property="Source" Value="red-led-on-md.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource Locator}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Click="PropertiesMenuItemClicked" Header="Properties" />
+                <Separator />
+                <MenuItem Click="MenuItemClick" Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="Windows">
+                <MenuItem Click="MainButtonClicked" Header="Main" />
+                <MenuItem Click="StatButtonClicked" Header="Stats" />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Click="AboutMenuItemClicked" Header="About Hammurabi II" />
+            </MenuItem>
+        </Menu>
+        <dz:DockControl
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            DefaultFloatingWindowSize="550,420">
+            <dz:DockItem
+                x:Name="Stats"
+                Title="Encoder Statistics"
+                AllowedDockTreePositions="Floating,Document"
+                HideOnPerformClose="True"
+                ShowAction="{dz:ShowAsDockPositionAction DockPosition=Document}"
+                TabText="Stats">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Grid Background="#FFE5E5E5" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <GroupBox
+                            x:Name="ExitDataGroup"
+                            Grid.Row="0"
+                            Margin="4"
+                            Header="Encoder Exit Data"
+                            Visibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="label" />
+                                    <ColumnDefinition SharedSizeGroup="data" />
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="label" />
+                                    <ColumnDefinition SharedSizeGroup="data" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="Start time" />
+                                <TextBlock
+                                    x:Name="StartTime"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="End time" />
+                                <TextBlock
+                                    x:Name="ExitTime"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="CPU time" />
+                                <TextBlock
+                                    x:Name="TotalProcTime"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="User time" />
+                                <TextBlock
+                                    x:Name="UserTime"
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Elapsed time" />
+                                <TextBlock
+                                    x:Name="ElapsedTime"
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Exit code" />
+                                <TextBlock
+                                    x:Name="ExitCode"
+                                    Grid.Row="2"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox
+                            x:Name="LiveData"
+                            Grid.Row="1"
+                            Margin="4"
+                            Header="Live Data"
+                            Visibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="label" />
+                                    <ColumnDefinition SharedSizeGroup="data" />
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="label" />
+                                    <ColumnDefinition SharedSizeGroup="data" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="Frames" />
+                                <TextBlock
+                                    x:Name="Frames"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="fps" />
+                                <TextBlock
+                                    x:Name="fps"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="q" />
+                                <TextBlock
+                                    x:Name="q1"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="Dups" />
+                                <TextBlock
+                                    x:Name="Dups"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Margin="4"
+                                    Text="Drops" />
+                                <TextBlock
+                                    x:Name="Drops"
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Size" />
+                                <TextBlock
+                                    x:Name="Size"
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Time" />
+                                <TextBlock
+                                    x:Name="Time"
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Bitrate" />
+                                <TextBlock
+                                    x:Name="Bitrate"
+                                    Grid.Row="2"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="2"
+                                    Margin="4"
+                                    Text="Speed" />
+                                <TextBlock
+                                    x:Name="Speed"
+                                    Grid.Row="3"
+                                    Grid.Column="3"
+                                    Margin="4" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox
+                            x:Name="StaticGroup"
+                            Grid.Row="2"
+                            Margin="4"
+                            Header="Static Data"
+                            Visibility="Collapsed">
+                            <StackPanel x:Name="StaticData" />
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </dz:DockItem>
+            <dz:DockItem
+                x:Name="Main"
+                Title="Main Encoder Controls"
+                AllowedDockTreePositions="Floating,Document"
+                DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}"
+                HideOnPerformClose="True"
+                ShowAction="{dz:ShowAsDockPositionAction DockPosition=Document}"
+                TabText="Main">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="Video Source {0}&#x9;" />
+                        <ComboBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            ItemsSource="{Binding Settings.VideoDevices, Source={StaticResource Locator}}"
+                            SelectedItem="{Binding SelectedVideoDevice}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="Audio Source {1}" />
+                        <ComboBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            ItemsSource="{Binding Settings.AudioDevices, Source={StaticResource Locator}}"
+                            SelectedItem="{Binding SelectedAudioDevice}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="Application {3}" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding ApplicationName}" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="Stream Name {4}" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            Text="{Binding StreamName}" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="Public IP Address" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Text="{Binding PublicIpAddress}" />
+                        <DockPanel
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            HorizontalAlignment="Right">
+                            <CheckBox
+                                x:Name="DebugCheckBox"
+                                Margin="4"
+                                VerticalAlignment="Center"
+                                Content="Debug"
+                                IsChecked="{Binding IsInDebugMode}"
+                                Visibility="Collapsed" />
+                            <CheckBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,4,0,0"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsBroadcasting}"
+                                Style="{DynamicResource GreenIndicatorStyle}" />
+                            <Button
+                                x:Name="StartBroadcastButton"
+                                Width="100"
+                                Margin="4"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding StartBroadcastingCommand}"
+                                Content="Start Broadcast"
+                                DockPanel.Dock="Left"
+                                Visibility="{Binding IsNotBroadcasting, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Button
+                                x:Name="StopBroadcastButton"
+                                Width="100"
+                                Margin="4"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding StopBroadcastingCommand}"
+                                Content="Stop Broadcast"
+                                DockPanel.Dock="Left"
+                                Visibility="{Binding IsBroadcasting, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <CheckBox
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Margin="8,4,0,0"
+                                VerticalAlignment="Center"
+                                DataContext="{Binding RecorderSettings, Mode=OneWay, Source={StaticResource Locator}}"
+                                IsChecked="{Binding IsRecording}"
+                                Style="{DynamicResource RedIndicatorStyle}" />
+                            <Button
+                                Width="100"
+                                Margin="4"
+                                VerticalAlignment="Top"
+                                Command="{Binding StartRecordingCommand}"
+                                Content="Start Recording"
+                                DataContext="{Binding RecorderSettings, Source={StaticResource Locator}}"
+                                Visibility="{Binding IsRecording, Converter={StaticResource RevBooleanToVisibilityConverter}}" />
+                            <Button
+                                Width="100"
+                                Margin="4"
+                                VerticalAlignment="Top"
+                                Command="{Binding StopRecordingCommand}"
+                                Content="Stop Recording"
+                                DataContext="{Binding RecorderSettings, Source={StaticResource Locator}}"
+                                Visibility="{Binding IsRecording, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <CheckBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="8,4,0,0"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsPlaying}"
+                                Style="{DynamicResource GreenIndicatorStyle}" />
+                            <Button
+                                Width="100"
+                                Margin="4"
+                                VerticalAlignment="Top"
+                                Command="{Binding StartPlayingCommand}"
+                                Content="Start Monitor"
+                                Visibility="{Binding IsPlaying, Converter={StaticResource RevBooleanToVisibilityConverter}}" />
+                            <Button
+                                Width="100"
+                                Margin="4"
+                                VerticalAlignment="Top"
+                                Command="{Binding StopPlayingCommand}"
+                                Content="Stop Monitor"
+                                Visibility="{Binding IsPlaying, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </DockPanel>
+                        <GroupBox
+                            Grid.Row="7"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            MinHeight="72"
+                            Margin="4"
+                            Grid.IsSharedSizeScope="True"
+                            Header="Broadcast argument">
+                            <TextBlock
+                                x:Name="ffmpegArgTextBlock"
+                                Grid.Row="1"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                Margin="4"
+                                Text="{Binding BroadcastArgument, Mode=OneWay}"
+                                TextWrapping="Wrap">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Copy" Click="FFmpegArgTBMenuItemClick" />
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </dz:DockItem>
+        </dz:DockControl>
+    </Grid>
+</Window>

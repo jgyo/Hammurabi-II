@@ -1,0 +1,99 @@
+﻿<Window
+    x:Class="Ham2.view.AboutWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ham2.view"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="About Hammurabi II"
+    Width="493"
+    Height="412"
+    mc:Ignorable="d">
+    <Grid Background="#ffe5e5e5">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <RichTextBox
+            Background="#FFE5E5E5"
+            IsDocumentEnabled="True"
+            IsReadOnly="True"
+            VerticalScrollBarVisibility="Auto">
+            <FlowDocument>
+                <Paragraph
+                    FontFamily="Arial"
+                    FontSize="28"
+                    FontWeight="Bold">
+                    Hammurabi II
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    <Bold>Hammurabi II</Bold>
+                    is the second encoder wrapper written by the program author. The first
+                    <Bold>Hammurabi</Bold>
+                    was written several years ago to make it easy to use Microsoft Encoder by non-technical users. The second version attempts to do the same for
+                    <Hyperlink Command="{Binding Main.OpenHyperlinkCommand}" CommandParameter="http://ffmpeg.org/about.html">
+                        FFmpeg
+                    </Hyperlink>
+                    . We have been searching options for several years now for a way to support users on platforms other than Windows. There are several options available, but which are expensive to implement. We finally settled on FFmpeg because it is free and flexible enough to do what we need out of it.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    FFmpeg, however, is difficult to use. Rather than providing a graphical user interface FFmpeg operates from the command line and is configured by writing long and complicated command line arguments. It’s not something even technical people really want to do.
+                    <Bold>Hammurabi II</Bold>
+                    does the hard work for you and allows you to do what is fun.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    We have attempted to write
+                    <Bold>Hammurabi II</Bold>
+                    so that it can be used out of the box simply by supplying a few necessary bits of information such as streaming server name, stream name, user information, where to find FFmpeg.exe and several other resources, etc. Once that data is entered, the data can be saved so in future uses the user can stream audio and video, and record the same just by clicking a few buttons at the appropriate times.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    A few caveats are in order:
+                    <Bold>Hammurabi II</Bold>
+                    looks complicated at first glance. Fortunately, default values have been supplied for many fields, and probably won’t need changing. Unless you know what you are doing, or someone has instructed you to make a change, consider the more esoteric fields in
+                    <Bold>Hammurabi II</Bold>
+                    as “off limits.” Look, but don’t touch.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    A few fields though must be supplied. Everything on the “Main” tab must be defined. You’ll need to enter that data. On the “Gen Settings” tab, except for the “FFmpeg arg format,” everything needs to be specified. You need to supply paths for three programs that come with FFmpeg, and the hostname of the server where you want to publish RTMP audio/video streams.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    If you want to include metadata with your stream, you’ll need to supply that on the “Metadata” tab. The default argument format on the “Gen Settings” page only supports the copyright and artist fields. If you want to include some of the other fields, you’ll need to modify the argument format using the default argument as a guide. (If you make a mistake, you can get back to the original argument format by clicking on “Reset” within the field’s right click context menu.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    You might need to change the two fields on the “Rec Settings” page, but only if you are told to do so by your streaming administrator. These fields help to define the URL that
+                    <Bold>Hammurabi II</Bold>
+                    uses to kick off recordings on the streaming server.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    Most of the time you’ll stay right where it’s comfortable, on the “Main” tab’s page. It is here that you will start and stop broadcasting, recordings, and a window to monitor the final video output. Once you’ve started broadcasting, you might like to go to the “Stats” page to see how your broadcast is going. Some of the information there is technical, but there are some interesting bits of information, like frame rate, dropped frames, bandwidth utilization, etc.
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    When you start a broadcast, by default
+                    <Bold>Hammurab II</Bold>
+                    will open a window so you can see a representation of the input video stream. You can move the window around your screen, minimize it to the task bar on Windows, and maximize it to full screen. You should be aware though that if you close this window, FFmpeg will automatically stop broadcasting your stream. So, unless you really want to stop broadcasting, don't close this window. (As a warning this window has a title of “Caution: Input.”)
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    Note, for
+                    <Bold>Hammurabi II</Bold>
+                    can be configured to work with any streaming server supported by FFmpeg. Remote recording is supported only for servers that support a command API similar to
+                    <Hyperlink Command="{Binding Main.OpenHyperlinkCommand}" CommandParameter="http://nginx.org/en/">
+                        NGINX (engine x).
+                    </Hyperlink>
+                </Paragraph>
+                <Paragraph FontSize="15">
+                    We have enjoyed writing
+                    <Bold>Hammurabi II</Bold>
+                    . We hope you enjoy using it.
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button
+            Grid.Row="2"
+            Width="75"
+            Margin="4"
+            Padding="4,2"
+            HorizontalAlignment="Right"
+            Content="Okay" Click="ButtonClick" />
+    </Grid>
+</Window>

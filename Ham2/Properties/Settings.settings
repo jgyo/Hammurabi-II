@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ham2.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ffmpegPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ffplayPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ffprobePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="inputDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="outputDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="streamingHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="controlUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ffmpegArgFmt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-hide_banner -f dshow -sample_rate 11025 -video_size qvga -i video="{0}":audio="{1}" -f flv -r 15 -c:v libx264 -crf {5} -preset {6} -maxrate {7} -minrate {7} -b:v {7} -bufsize {8} -pix_fmt {9} -g {10} -c:a {11} -b:a {12} -metadata copyright="{16}" -metadata artist="{14}" rtmp://{2}/{3}/{4}?u={13}&amp;e={20}&amp;h={21} {22}</Value>
+    </Setting>
+    <Setting Name="ffplayArgFmt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-an rtmp://{0}/{1}/{2}</Value>
+    </Setting>
+    <Setting Name="AddressService" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://media.oabs.org/secure/addr2.php</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
