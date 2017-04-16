@@ -4,6 +4,9 @@
 We defined the wrapper primarily to work with NginX with its rtmp module
 installed, but it should work with any streaming service supported by FFmpeg.
 
+You can download the latest release of the program on the [releases page](https://github.com/jgyo/Hammurabi-II/releases)
+here on GitHub.
+
 ## Operation
 
 ![Mainui](documentation/mainui.png)
