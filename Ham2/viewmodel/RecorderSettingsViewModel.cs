@@ -90,8 +90,8 @@ namespace Ham2.viewmodel
 
         public void ResetModel()
         {
-            Name = Recorder.Default.Name;
-            Path = Recorder.Default.Path;
+            Name = Settings.Default.RecName;
+            Path = Settings.Default.RecPath;
         }
 
         public void SetMainViewModel(MainViewModel main)
@@ -102,9 +102,9 @@ namespace Ham2.viewmodel
 
         public void UpdateSettings()
         {
-            Recorder.Default.Name = Name;
-            Recorder.Default.Path = Path;
-            Recorder.Default.Save();
+            Settings.Default.RecName = Name;
+            Settings.Default.RecPath = Path;
+            Settings.Default.Save();
         }
 
         public bool IsRecording
@@ -157,11 +157,7 @@ namespace Ham2.viewmodel
         }
 
         public RelayCommand PersistCommand => this._persistCommand
-                    ?? (this._persistCommand = new RelayCommand(
-                        () =>
-                        {
-                            UpdateSettings();
-                        }));
+                    ?? (this._persistCommand = new RelayCommand(UpdateSettings));
 
         public RelayCommand StartRecordingCommand => this._startRecordingCommand
                     ?? (this._startRecordingCommand = new RelayCommand(
@@ -192,7 +188,7 @@ namespace Ham2.viewmodel
             {
                 try
                 {
-                    return string.Format(Recorder.Default.ControlArgFmt,
+                    return string.Format(Settings.Default.ControlArgFmt,
                     "start",
                     this._settingsViewModel.StreamingHost,
                     Path,
@@ -235,7 +231,7 @@ namespace Ham2.viewmodel
             {
                 try
                 {
-                    return string.Format(Recorder.Default.ControlArgFmt,
+                    return string.Format(Settings.Default.ControlArgFmt,
                     "stop",
                     this._settingsViewModel.StreamingHost,
                     Path,

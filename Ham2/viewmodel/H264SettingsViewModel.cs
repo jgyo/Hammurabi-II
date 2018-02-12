@@ -12,14 +12,14 @@ namespace Ham2.viewmodel
         private string _bufferSize;
         private int _crf;
         private int _gop;
-        readonly private H264 _h264Settings;
+        readonly private Settings _h264Settings;
         private string _pixelFormat;
         private string _preset;
         private string _videoBitRate;
 
         public H264SettingsViewModel()
         {
-            this._h264Settings = H264.Default;
+            this._h264Settings = Settings.Default;
             ResetModel();
         }
 

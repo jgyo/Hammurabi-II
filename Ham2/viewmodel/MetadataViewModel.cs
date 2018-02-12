@@ -12,13 +12,13 @@ namespace Ham2.viewmodel
         private string _comment;
         private string _copyright;
         private string _description;
-        private readonly Metadata _metadataSettings;
+        private readonly Settings _metadataSettings;
         private RelayCommand _persistCommand;
         private string _title;
 
         public MetadataViewModel()
         {
-            this._metadataSettings = Metadata.Default;
+            this._metadataSettings = Settings.Default;
 
             ResetModel();
         }

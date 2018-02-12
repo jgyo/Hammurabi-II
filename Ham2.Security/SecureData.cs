@@ -11,19 +11,19 @@ namespace Ham2.Security
     [SettingsSerializeAs(SettingsSerializeAs.ProviderSpecific)]
     public class SecureData : ISerializable, IEquatable<SecureData>
     {
-        byte[] _cyphertext;
-        byte[] _entropy;
+        readonly byte[] _cyphertext;
+        readonly byte[] _entropy;
 
         public SecureData(string unsecuredText)
         {
             byte[] unsecuredBytes = Encoding.UTF8.GetBytes(unsecuredText);
-            this.Entropy = new byte[20];
+            this._entropy = new byte[20];
             using (var rng = new RNGCryptoServiceProvider())
             {
                 rng.GetBytes(this.Entropy);
             }
 
-            this.Cyphertext = ProtectedData.Protect(unsecuredBytes, this.Entropy, DataProtectionScope.CurrentUser);
+            this._cyphertext = ProtectedData.Protect(unsecuredBytes, this.Entropy, DataProtectionScope.CurrentUser);
         }
 
         public SecureData(SerializationInfo info, StreamingContext context)
@@ -57,7 +57,7 @@ namespace Ham2.Security
                 return Equals((SecureData)obj);
             }
 
-            return base.Equals(obj);
+            return object.ReferenceEquals(this, obj);
         }
 
         public bool Equals(SecureData other)
@@ -112,16 +112,6 @@ namespace Ham2.Security
                     hashCode = (hashCode * 53) ^ this._entropy.GetHashCode();
                 }
 
-                if (this.Cyphertext != null)
-                {
-                    hashCode = (hashCode * 53) ^ this.Cyphertext.GetHashCode();
-                }
-
-                if (this.Entropy != null)
-                {
-                    hashCode = (hashCode * 53) ^ this.Entropy.GetHashCode();
-                }
-
                 return hashCode;
             }
         }
@@ -145,8 +135,8 @@ namespace Ham2.Security
             }
         }
 
-        public byte[] Cyphertext { get => this._cyphertext; private set => this._cyphertext = value; }
+        public byte[] Cyphertext { get => this._cyphertext; }
 
-        public byte[] Entropy { get => this._entropy; private set => this._entropy = value; }
+        public byte[] Entropy { get => this._entropy; }
     }
 }

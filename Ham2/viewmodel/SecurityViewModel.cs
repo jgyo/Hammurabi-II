@@ -8,7 +8,7 @@ namespace Ham2.viewmodel
     public class SecurityViewModel : ViewModelBase, ISettings
     {
         string _addressService;
-        long _expiration;
+        long _expiration = Security.Security.ToUnixTime(DateTime.Now) + 3600;
         string _hash;
         SecureData _secureData;
         string _sharedSecret;
@@ -18,8 +18,6 @@ namespace Ham2.viewmodel
 
         public void GenerateHash(string app, string name)
         {
-            this.Expiration = Security.Security.ToUnixTime(DateTime.Now) + 3600;
-
             Security.Security.Expiration = this.Expiration;
             Security.Security.App = app;
             Security.Security.Name = name;
@@ -31,19 +29,25 @@ namespace Ham2.viewmodel
 
         public void ResetModel()
         {
-            this.SharedSecret = Properties.Security.Default.Secret;
-            this.Username = Properties.Security.Default.Username;
-            this.SecureData = Properties.Security.Default.SecureData;
-            this.AddressService = Properties.Security.Default.IpAddressService;
+            this.SharedSecret = Properties.Settings.Default.Secret;
+            this.Username = Properties.Settings.Default.Username;
+            this.SecureData = Properties.Settings.Default.SecureData;
+            this.AddressService = Properties.Settings.Default.IpAddressService;
+            //this.Expiration = Security.Security.ToUnixTime(DateTime.Now) + 3600;
+        }
+
+        public void UpdateExpiration()
+        {
+            this.Expiration = Security.Security.ToUnixTime(DateTime.Now) + 3600;
         }
 
         public void UpdateSettings()
         {
-            Properties.Security.Default.Secret = this.SharedSecret;
-            Properties.Security.Default.Username = this.Username;
-            Properties.Security.Default.SecureData = this.SecureData;
-            Properties.Security.Default.IpAddressService = this.AddressService;
-            Properties.Security.Default.Save();
+            Properties.Settings.Default.Secret = this.SharedSecret;
+            Properties.Settings.Default.Username = this.Username;
+            Properties.Settings.Default.SecureData = this.SecureData;
+            Properties.Settings.Default.IpAddressService = this.AddressService;
+            Properties.Settings.Default.Save();
         }
 
         public string AddressService

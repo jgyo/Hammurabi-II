@@ -451,7 +451,7 @@
                                     Padding="2"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Maxrate, ValidatesOnExceptions=True}" />
+                                    Text="{Binding VideoBitRate, ValidatesOnExceptions=True}" />
                                 <TextBlock
                                     Grid.Row="3"
                                     Grid.Column="0"
@@ -549,7 +549,7 @@
                                     Margin="4"
                                     Padding="2"
                                     HorizontalAlignment="Left"
-                                    Text="{Binding AudioBitrate}" />
+                                    Text="{Binding AudioBitRate}" />
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -805,6 +805,37 @@
                         Padding="2"
                         VerticalAlignment="Center"
                         Text="{Binding AddressService}" />
+                </Grid>
+            </TabItem>
+            <TabItem
+                DataContext="{Binding Settings, Mode=OneWay}"
+                Header="Debug">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="4"
+                        VerticalAlignment="Center"
+                        Text="Output Directory" />
+                <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="4"
+                        Padding="2"
+                        VerticalAlignment="Center"
+                        Text="{Binding OutputDir}" />
                 </Grid>
             </TabItem>
         </TabControl>

@@ -218,6 +218,8 @@ namespace Ham2
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            _mainViewModel.SaveProperties();
+
             base.OnClosing(e);
 
             if (e.Cancel)

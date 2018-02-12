@@ -626,7 +626,7 @@
                                 VerticalAlignment="Center"
                                 Content="Debug"
                                 IsChecked="{Binding IsInDebugMode}"
-                                Visibility="Collapsed" />
+                                />
                             <CheckBox
                                 Grid.Row="0"
                                 Grid.Column="1"

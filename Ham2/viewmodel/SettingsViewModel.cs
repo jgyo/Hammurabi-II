@@ -13,7 +13,6 @@ namespace Ham2.viewmodel
     public class SettingsViewModel : ViewModelBase, ISettings
     {
         private ObservableCollection<string> _audioDevices = new ObservableCollection<string>();
-        private string _controlURL;
         private string _ffmpegArgFormat;
         private string _ffmpegPath;
         private string _ffplayArgFmt;
@@ -27,7 +26,7 @@ namespace Ham2.viewmodel
         private RelayCommand<System.Windows.Controls.TextBox> _resetArgFormatCommand;
         private readonly Settings _settings;
         private string _streamingHost;
-        private ObservableCollection<string> _videoDevices = new ObservableCollection<string>();
+        readonly private ObservableCollection<string> _videoDevices = new ObservableCollection<string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
@@ -42,6 +41,7 @@ namespace Ham2.viewmodel
         /// Occurs when [devices updated].
         /// </summary>
         public event EventHandler DevicesUpdated;
+
         /// <summary>
         /// Occurs when [model updated].
         /// </summary>
@@ -234,7 +234,6 @@ namespace Ham2.viewmodel
             OutputDir = this._settings.outputDir;
             FFmpegArgFmt = this._settings.ffmpegArgFmt;
             StreamingHost = this._settings.streamingHost;
-            ControlURL = this._settings.controlUrl;
             FFplayArgFmt = this._settings.ffplayArgFmt;
 
             UpdateDevices();
@@ -253,7 +252,6 @@ namespace Ham2.viewmodel
             this._settings.outputDir = OutputDir;
             this._settings.ffmpegArgFmt = FFmpegArgFmt;
             this._settings.streamingHost = StreamingHost;
-            this._settings.controlUrl = ControlURL;
             this._settings.ffplayArgFmt = FFplayArgFmt;
 
             this._settings.Save();
@@ -270,26 +268,6 @@ namespace Ham2.viewmodel
         /// The audio devices.
         /// </value>
         public ObservableCollection<string> AudioDevices => this._audioDevices;
-
-        /// <summary>
-        /// Gets or sets the control URL.
-        /// </summary>
-        /// <value>
-        /// The control URL.
-        /// </value>
-        public string ControlURL
-        {
-            get => this._controlURL; set
-            {
-                if (value == this._controlURL)
-                {
-                    return;
-                }
-
-                this._controlURL = value;
-                RaisePropertyChanged();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the ffmpeg argument FMT.

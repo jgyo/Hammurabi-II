@@ -60,7 +60,7 @@ namespace Ham2.view
                     return;
                 }
 
-                model.SecureData = new SecureData(this.pwb1.Password);
+                    model.SecureData = new SecureData(this.pwb1.Password);
             }
             else
             {

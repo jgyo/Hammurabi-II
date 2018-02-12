@@ -20,17 +20,86 @@
     <Setting Name="streamingHost" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="controlUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ffmpegArgFmt" Type="System.String" Scope="User">
       <Value Profile="(Default)">-hide_banner -f dshow -sample_rate 11025 -video_size qvga -i video="{0}":audio="{1}" -f flv -r 15 -c:v libx264 -crf {5} -preset {6} -maxrate {7} -minrate {7} -b:v {7} -bufsize {8} -pix_fmt {9} -g {10} -c:a {11} -b:a {12} -metadata copyright="{16}" -metadata artist="{14}" rtmp://{2}/{3}/{4}?u={13}&amp;e={20}&amp;h={21} {22}</Value>
     </Setting>
     <Setting Name="ffplayArgFmt" Type="System.String" Scope="User">
       <Value Profile="(Default)">-an rtmp://{0}/{1}/{2}</Value>
     </Setting>
-    <Setting Name="AddressService" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://media.oabs.org/secure/addr2.php</Value>
+    <Setting Name="crf" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="preset" Type="System.String" Scope="User">
+      <Value Profile="(Default)">veryfast</Value>
+    </Setting>
+    <Setting Name="buffersize" Type="System.String" Scope="User">
+      <Value Profile="(Default)">198k</Value>
+    </Setting>
+    <Setting Name="videoBitRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">96k</Value>
+    </Setting>
+    <Setting Name="gop" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="audioCodec" Type="System.String" Scope="User">
+      <Value Profile="(Default)">aac</Value>
+    </Setting>
+    <Setting Name="audioBitRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">24k</Value>
+    </Setting>
+    <Setting Name="pixelFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">yuv420p</Value>
+    </Setting>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Secret" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SecureData" Type="Ham2.Security.SecureData" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IpAddressService" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RecPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">control</Value>
+    </Setting>
+    <Setting Name="RecName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">record</Value>
+    </Setting>
+    <Setting Name="ControlArgFmt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://{1}/{2}/record/{0}?app={3}&amp;name={4}&amp;rec={5}</Value>
+    </Setting>
+    <Setting Name="Artist" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Album" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Copyright" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Description" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Comment" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Title" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="VideoSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AudioSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="StreamName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

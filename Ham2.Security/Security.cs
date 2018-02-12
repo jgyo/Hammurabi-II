@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -36,16 +38,18 @@ namespace Ham2.Security
         /// <returns>The Md5 hash of the input string.</returns>
         static string ToMd5Hash(string input)
         {
-            using (var md5 = MD5.Create())
+            using (var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(Secret)))
             {
-                var data = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-                var s = new StringBuilder();
-                foreach (var item in data)
-                {
-                    s.Append($"{item:X2}");
-                }
+                Debug.WriteLine($"Input: {input}");
+                Debug.WriteLine($"Secret: {Secret}");
+                var bytes = Encoding.ASCII.GetBytes(input);
+                var stream = new MemoryStream(bytes);
+                var data = hmac.ComputeHash(stream);
+                var hash = BitConverter.ToString(data).Replace("-", "").ToLower();
 
-                return s.ToString();
+                Debug.WriteLine($"Hash: {hash}");
+                
+                return hash;
             }
         }
 
@@ -63,7 +67,7 @@ namespace Ham2.Security
                 throw new InvalidOperationException();
             }
 
-            return ToMd5Hash($"{User}{Expiration}{App}{IpAddress}{Name}{Secret}{password}");
+            return ToMd5Hash($"{User}{Expiration}{App}{IpAddress}{Name}{password}");
         }
 
         /// <summary>
@@ -85,6 +89,7 @@ namespace Ham2.Security
                 IpAddress = "Invalid";
             }
         }
+
 
         /// <summary>
         /// Converts the given DateTime to Unix time.

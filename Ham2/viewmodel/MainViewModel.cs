@@ -69,17 +69,23 @@ namespace Ham2.viewmodel
 
             this._recorderViewModel.SetMainViewModel(this);
 
-            StreamName = Main.Default.StreamName;
-            SelectedVideoDevice = Main.Default.VideoSource;
-            SelectedAudioDevice = Main.Default.AudioSource;
-            ApplicationName = Main.Default.ApplicationName;
+            StreamName = Settings.Default.StreamName;
+            SelectedVideoDevice = Settings.Default.VideoSource;
+            SelectedAudioDevice = Settings.Default.AudioSource;
+            ApplicationName = Settings.Default.ApplicationName;
 
             this._settingsViewModel.DevicesUpdated += SettingsDevicesUpdated;
             this._settingsViewModel.PropertyChanged += ViewModelPropertyChanged;
             this._h264ViewModel.PropertyChanged += ViewModelPropertyChanged;
             this._metadataViewModel.PropertyChanged += ViewModelPropertyChanged;
+            Security.Security.IpAddressAquired += this.Security_IpAddressAquired;
 
             CheckBroadcastingAvailability();
+        }
+
+        private void Security_IpAddressAquired(object sender, EventArgs e)
+        {
+            OnBroadcastArgumentUpdated();
         }
 
         public event EventHandler<DispatchEventArgs> DispatchEvent;
@@ -92,7 +98,13 @@ namespace Ham2.viewmodel
         private void CheckBroadcastingAvailability()
         {
             // Check if we have ffmpeg path
-            if (this._ffmpegProcess != null || string.IsNullOrEmpty(this._settingsViewModel.FFmpegPath) || !File.Exists(this._settingsViewModel.FFmpegPath))
+            if (this._ffmpegProcess != null || string.IsNullOrEmpty(this._settingsViewModel.FFmpegPath) || !File.Exists(this._settingsViewModel.FFmpegPath)  )
+            {
+                CanBroadcast = false;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PublicIpAddress) || PublicIpAddress == "Invalid")
             {
                 CanBroadcast = false;
                 return;
@@ -183,8 +195,8 @@ namespace Ham2.viewmodel
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SettingsDevicesUpdated(object sender, EventArgs e)
         {
-            SelectedVideoDevice = Main.Default.VideoSource;
-            SelectedAudioDevice = Main.Default.AudioSource;
+            SelectedVideoDevice = Settings.Default.VideoSource;
+            SelectedAudioDevice = Settings.Default.AudioSource;
             CheckBroadcastingAvailability();
         }
 
@@ -204,12 +216,12 @@ namespace Ham2.viewmodel
         /// </summary>
         internal void SaveProperties()
         {
-            Main.Default.StreamName = StreamName;
-            Main.Default.VideoSource = SelectedVideoDevice;
-            Main.Default.AudioSource = SelectedAudioDevice;
-            Main.Default.ApplicationName = ApplicationName;
+            Settings.Default.StreamName = StreamName;
+            Settings.Default.VideoSource = SelectedVideoDevice;
+            Settings.Default.AudioSource = SelectedAudioDevice;
+            Settings.Default.ApplicationName = ApplicationName;
 
-            Main.Default.Save();
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -524,11 +536,7 @@ namespace Ham2.viewmodel
         /// The persist command.
         /// </value>
         public RelayCommand PersistCommand => this._persistCommand
-                    ?? (this._persistCommand = new RelayCommand(
-                        () =>
-                        {
-                            SaveProperties();
-                        }));
+                    ?? (this._persistCommand = new RelayCommand(SaveProperties));
 
         public string PublicIpAddress => Security.Security.IpAddress;
 
@@ -586,12 +594,13 @@ namespace Ham2.viewmodel
                     ?? (this._startBroadcastingCommand = new RelayCommand(
                         () =>
                         {
+                            SaveProperties();
                             if (this._ffmpegProcess != null)
                             {
                                 return;
                             }
 
-                            SaveProperties();
+                            this._securityViewModel.UpdateExpiration();
 
                             this._ffmpegProcess = new ProcessHelper(this._settingsViewModel.FFmpegPath)
                             {
@@ -601,7 +610,7 @@ namespace Ham2.viewmodel
                             this._ffmpegProcess.FFmpegProcessExited += FFmpegProcessFFmpegProcessExited;
                             if (IsInDebugMode)
                             {
-                                Xout.FilePath = $@"{this._settingsViewModel.OutputDir}{DateTime.Now:yyyyMMdd HHmmss} {StreamName}.log";
+                                Xout.FilePath = $@"{this._settingsViewModel.OutputDir}/{DateTime.Now:yyyyMMdd HHmmss} {StreamName}.log";
                                 this._ffmpegProcess.ErrorDataReceived += FFmpegProcessErrorDataReceived;
                                 this._ffmpegProcess.OutputDataReceived += FFmpegProcessOutputDataReceived;
                                 this._startedProcessInDebugMode = true;

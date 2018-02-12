@@ -12,7 +12,7 @@ namespace Ham2.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -97,18 +97,6 @@ namespace Ham2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string controlUrl {
-            get {
-                return ((string)(this["controlUrl"]));
-            }
-            set {
-                this["controlUrl"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"-hide_banner -f dshow -sample_rate 11025 -video_size qvga -i video=""{0}"":audio=""{1}"" -f flv -r 15 -c:v libx264 -crf {5} -preset {6} -maxrate {7} -minrate {7} -b:v {7} -bufsize {8} -pix_fmt {9} -g {10} -c:a {11} -b:a {12} -metadata copyright=""{16}"" -metadata artist=""{14}"" rtmp://{2}/{3}/{4}?u={13}&e={20}&h={21} {22}")]
         public string ffmpegArgFmt {
             get {
@@ -133,13 +121,300 @@ namespace Ham2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://media.oabs.org/secure/addr2.php")]
-        public string AddressService {
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int crf {
             get {
-                return ((string)(this["AddressService"]));
+                return ((int)(this["crf"]));
             }
             set {
-                this["AddressService"] = value;
+                this["crf"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("veryfast")]
+        public string preset {
+            get {
+                return ((string)(this["preset"]));
+            }
+            set {
+                this["preset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("198k")]
+        public string buffersize {
+            get {
+                return ((string)(this["buffersize"]));
+            }
+            set {
+                this["buffersize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("96k")]
+        public string videoBitRate {
+            get {
+                return ((string)(this["videoBitRate"]));
+            }
+            set {
+                this["videoBitRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int gop {
+            get {
+                return ((int)(this["gop"]));
+            }
+            set {
+                this["gop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("aac")]
+        public string audioCodec {
+            get {
+                return ((string)(this["audioCodec"]));
+            }
+            set {
+                this["audioCodec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24k")]
+        public string audioBitRate {
+            get {
+                return ((string)(this["audioBitRate"]));
+            }
+            set {
+                this["audioBitRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("yuv420p")]
+        public string pixelFormat {
+            get {
+                return ((string)(this["pixelFormat"]));
+            }
+            set {
+                this["pixelFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Username {
+            get {
+                return ((string)(this["Username"]));
+            }
+            set {
+                this["Username"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Secret {
+            get {
+                return ((string)(this["Secret"]));
+            }
+            set {
+                this["Secret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::Ham2.Security.SecureData SecureData {
+            get {
+                return ((global::Ham2.Security.SecureData)(this["SecureData"]));
+            }
+            set {
+                this["SecureData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IpAddressService {
+            get {
+                return ((string)(this["IpAddressService"]));
+            }
+            set {
+                this["IpAddressService"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("control")]
+        public string RecPath {
+            get {
+                return ((string)(this["RecPath"]));
+            }
+            set {
+                this["RecPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("record")]
+        public string RecName {
+            get {
+                return ((string)(this["RecName"]));
+            }
+            set {
+                this["RecName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://{1}/{2}/record/{0}?app={3}&name={4}&rec={5}")]
+        public string ControlArgFmt {
+            get {
+                return ((string)(this["ControlArgFmt"]));
+            }
+            set {
+                this["ControlArgFmt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Artist {
+            get {
+                return ((string)(this["Artist"]));
+            }
+            set {
+                this["Artist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Album {
+            get {
+                return ((string)(this["Album"]));
+            }
+            set {
+                this["Album"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Copyright {
+            get {
+                return ((string)(this["Copyright"]));
+            }
+            set {
+                this["Copyright"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Description {
+            get {
+                return ((string)(this["Description"]));
+            }
+            set {
+                this["Description"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Comment {
+            get {
+                return ((string)(this["Comment"]));
+            }
+            set {
+                this["Comment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Title {
+            get {
+                return ((string)(this["Title"]));
+            }
+            set {
+                this["Title"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string VideoSource {
+            get {
+                return ((string)(this["VideoSource"]));
+            }
+            set {
+                this["VideoSource"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AudioSource {
+            get {
+                return ((string)(this["AudioSource"]));
+            }
+            set {
+                this["AudioSource"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StreamName {
+            get {
+                return ((string)(this["StreamName"]));
+            }
+            set {
+                this["StreamName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApplicationName {
+            get {
+                return ((string)(this["ApplicationName"]));
+            }
+            set {
+                this["ApplicationName"] = value;
             }
         }
     }

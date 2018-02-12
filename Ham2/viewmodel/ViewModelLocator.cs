@@ -15,9 +15,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
-/// <summary>
-/// Hammurabi View Models
-/// </summary>
 namespace Ham2.viewmodel
 {
     /// <summary>

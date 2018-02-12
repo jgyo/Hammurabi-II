@@ -13,4 +13,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:Ham2.utility.ProcessHelper.#ctor(System.String)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0165:Asynchronous methods should return a Task instead of void", Justification = "<Pending>", Scope = "member", Target = "~P:Ham2.viewmodel.RecorderSettingsViewModel.StartRecordingCommand")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Potential Code Quality Issues", "RECS0165:Asynchronous methods should return a Task instead of void", Justification = "<Pending>", Scope = "member", Target = "~P:Ham2.viewmodel.RecorderSettingsViewModel.StopRecordingCommand")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0009:Member access should be qualified.", Justification = "<Pending>", Scope = "member", Target = "~P:Ham2.viewmodel.RecorderSettingsViewModel.PersistCommand")]
 
