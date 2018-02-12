@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ham2.Security", "Ham2.Security\Ham2.Security.csproj", "{47CE079F-99ED-4725-B99B-AAE496DEADF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ham2", "Ham2\Ham2.csproj", "{77D0FD65-0D11-4139-922B-527BFEDF08AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTest", "HashTest\HashTest.csproj", "{28C275F5-0CFE-48C0-9E0C-261062D43439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashTest", "HashTest\HashTest.csproj", "{28C275F5-0CFE-48C0-9E0C-261062D43439}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{7785765E-C467-4F51-8A5B-3995917E7F4A}"
+	ProjectSection(SolutionItems) = preProject
+		auth.php = auth.php
+		database.php = database.php
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
